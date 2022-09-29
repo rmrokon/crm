@@ -1,0 +1,13 @@
+.container {
+    background: linear-gradient(to right, rgb(31, 60, 60), rgb(69, 78, 97), rgb(28, 28, 45));
+    color: white;
+    height: 80px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.link {
+    margin-right: 8px;
+    text-decoration: none;
+}

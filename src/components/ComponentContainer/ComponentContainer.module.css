@@ -1,0 +1,101 @@
+.container {
+    margin-top: 2vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+}
+
+.createBtn,
+.toggleImportLinksBtn {
+    border: 0;
+    border-radius: 8px 0 0 8px;
+    padding: 8px 16px;
+    background: linear-gradient(to right, rgb(31, 60, 60), rgb(69, 78, 97));
+    color: white;
+
+}
+
+.toggleImportLinksBtn {
+    margin-right: 2vw;
+    border-radius: 0 8px 8px 0;
+}
+
+.importLinks,
+.actionLinks {
+    border: 1px solid lightgray;
+    background-color: white;
+    border-radius: 8px;
+    position: absolute;
+    top: 48%;
+    left: 26%;
+    display: none;
+    padding-left: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.actionLinks {
+    left: 30%;
+}
+
+ul>li>a {
+    text-decoration: none;
+    color: black;
+}
+
+li {
+    list-style: none;
+    padding: 4px 24px;
+}
+
+li:hover {
+    background-color: rgba(135, 207, 235, 0.514);
+}
+
+.toggleActionsBtn,
+.selectItemTypesBtn {
+    border: 0;
+    background-color: rgba(112, 128, 144, 0.382);
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: black;
+}
+
+.togglefiltersBtn {
+    font-size: 16px;
+    padding: 12px 18px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    background-color: rgba(112, 128, 144, 0.382);
+    color: black;
+    margin-right: 16px;
+}
+
+.recordCountAndPagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(112, 128, 144, 0.141);
+    padding: 18px;
+    margin-top: 2vh;
+}
+
+.tableAndFilters {
+    display: flex;
+    justify-content: space-between;
+    height: calc(87vh - 120px);
+}
+
+.table {
+    background-color: cyan;
+    width: 100%;
+}
+
+.filters {
+    background-color: bisque;
+    width: 30%;
+    display: none;
+}
