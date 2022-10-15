@@ -1,6 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Link, NavLink } from "react-router-dom";
+import DisplayAccountsTable from '../DisplayAccountsTable/DisplayAccountsTable';
+import DisplayContactsTable from '../DisplayContactsTable/DisplayContactsTable';
+import DisplayDealsStageView from '../DisplayDealsStageView/DisplayDealsStageView';
+import DisplayDealsTable from '../DisplayDealsTable/DisplayDealsTable';
+import DisplayLeadsTable from '../DisplayLeadsTable/DisplayLeadsTable';
 import styles from './ComponentContainer.module.css';
 
 function ComponentContainer({ name }) {
@@ -80,7 +84,10 @@ function ComponentContainer({ name }) {
             </section>
             <section className={styles.tableAndFilters}>
                 <div className={styles.table}>
-                    Table
+                    {name === 'Lead' && <DisplayLeadsTable />}
+                    {name === 'Contact' && <DisplayContactsTable />}
+                    {name === 'Account' && <DisplayAccountsTable />}
+                    {name === 'Deal' && <DisplayDealsStageView />}
                 </div>
                 <div style={{ display: `${displayFilters}` }} className={styles.filters}>
                     filters

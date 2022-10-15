@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ComponentContainer from '../ComponentContainer/ComponentContainer'
 
 function Leads() {

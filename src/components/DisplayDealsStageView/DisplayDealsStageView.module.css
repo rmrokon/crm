@@ -1,0 +1,30 @@
+.dealStages {
+    display: flex;
+    overflow-x: scroll;
+}
+
+.stageName {
+    border: 1px solid rgba(128, 128, 128, 0.419);
+    width: 15vw;
+}
+
+.stageName>span {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.stageName>h5 {
+    margin: 4px 0;
+    font-weight: 400;
+}
+
+.stageName>span,
+h5 {
+    padding: 4px;
+}
+
+.dealsOnStage {
+    border: 1px solid rgba(128, 128, 128, 0.236);
+    width: 15vw;
+    height: 50vh;
+}

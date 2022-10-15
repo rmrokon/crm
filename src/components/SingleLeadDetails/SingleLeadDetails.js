@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../SharedStyles/createFormStyles.module.css';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function CreatNewLead() {
+    const { id } = useParams();
+    const [lead, setLead] = useState({});
     const leadOwners = ["Rokon", "Naeim", "Reza"];
-    const leadSource = ['Advertisement', 'LinkedIn', 'Facebook', 'Instagram'];
-    const leadStatus = ['Attempted to Contact', 'Contact in Future', 'Contacted', 'Junk Lead', 'Lost Lead', 'Not COntacted'];
-    const rating = ['Acquired', 'Active', 'Market Failed', 'Project Cancelled', 'Shut Down'];
+    const leadSources = ['Advertisement', 'LinkedIn', 'Facebook', 'Instagram'];
+    const leadStatuses = ['Attempted to Contact', 'Contact in Future', 'Contacted', 'Junk Lead', 'Lost Lead', 'Not COntacted'];
+    const ratings = ['Acquired', 'Active', 'Market Failed', 'Project Cancelled', 'Shut Down'];
+
+    const { leadOwner, leadSource, leadStatus, rating, firstName, lastName, leadName, company, mobile, email, emailOptOut, description, address } = lead;
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/v1/lead/${id}`)
+            .then(response => setLead(response.data.data))
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,6 +40,7 @@ function CreatNewLead() {
 
 
         const lead = {
+            _id: id,
             leadOwner,
             leadSource,
             leadStatus,
@@ -51,7 +62,7 @@ function CreatNewLead() {
             }
         };
 
-        axios.post('http://localhost:5000/api/v1/lead', lead)
+        axios.put('http://localhost:5000/api/v1/lead', lead)
             .then(response => {
                 if (response.data.status === 'success') {
                     alert('Lead saved!');
@@ -80,7 +91,7 @@ function CreatNewLead() {
                     <div className={styles.dataLists}>
                         <div>
                             <label htmlFor="">Lead Owner </label>
-                            <input type="text" list='leadOwner' name='leadOwner' />
+                            <input type="text" list='leadOwner' name='leadOwner' defaultValue={leadOwner} />
                             <datalist id='leadOwner'>
                                 {
                                     leadOwners.map((owner, index) =>
@@ -92,10 +103,10 @@ function CreatNewLead() {
 
                         <div>
                             <label htmlFor="">Lead Source </label>
-                            <input type="text" list='leadSource' name='leadSource' />
+                            <input type="text" list='leadSource' name='leadSource' defaultValue={leadSource} />
                             <datalist id='leadSource'>
                                 {
-                                    leadSource.map((source, index) =>
+                                    leadSources.map((source, index) =>
                                         <option key={index} value={source}>{source}</option>
                                     )
                                 }
@@ -104,10 +115,10 @@ function CreatNewLead() {
 
                         <div>
                             <label htmlFor="">Lead Status</label>
-                            <input type="text" list='leadStatus' name='leadStatus' />
+                            <input type="text" list='leadStatus' name='leadStatus' defaultValue={leadStatus} />
                             <datalist id='leadStatus'>
                                 {
-                                    leadStatus.map((source, index) =>
+                                    leadStatuses.map((source, index) =>
                                         <option key={index} value={source}>{source}</option>
                                     )
                                 }
@@ -116,10 +127,10 @@ function CreatNewLead() {
 
                         <div>
                             <label htmlFor="">Rating </label>
-                            <input type="text" list='rating' name='rating' />
+                            <input type="text" list='rating' name='rating' defaultValue={rating} />
                             <datalist id='rating'>
                                 {
-                                    rating.map((source, index) =>
+                                    ratings.map((source, index) =>
                                         <option key={index} value={source}>{source}</option>
                                     )
                                 }
@@ -129,30 +140,30 @@ function CreatNewLead() {
                     <section className={styles.information}>
                         <div>
                             <label htmlFor="">First Name </label>
-                            <input type="text" name="firstName" id="" required />
+                            <input type="text" name="firstName" id="" defaultValue={firstName} required />
                         </div>
 
                         <div>
                             <label htmlFor="">Last Name </label>
-                            <input type="text" name="lastName" id="" required />
+                            <input type="text" name="lastName" id="" defaultValue={lastName} required />
                         </div>
                         <div>
                             <label htmlFor="">Title</label>
-                            <input type="text" name="title" id="" required />
+                            <input type="text" name="title" id="" defaultValue={leadName} required />
                         </div>
                         <div>
                             <label htmlFor="">Company </label>
-                            <input type="text" name="company" id="" />
+                            <input type="text" name="company" id="" defaultValue={company} />
                         </div>
 
                         <div>
                             <label htmlFor="">Email </label>
-                            <input type="email" name="email" id="" />
+                            <input type="email" name="email" id="" defaultValue={email} />
                         </div>
 
                         <div>
                             <label htmlFor="">Mobile </label>
-                            <input type="number" name="mobile" id="" />
+                            <input type="number" name="mobile" id="" defaultValue={mobile} />
                         </div>
 
                     </section>
@@ -160,39 +171,39 @@ function CreatNewLead() {
                     <section className={styles.information}>
                         <div>
                             <label htmlFor="">Street </label>
-                            <input type="text" name="street" id="" />
+                            <input type="text" name="street" id="" defaultValue={address?.street} />
                         </div>
 
                         <div>
                             <label htmlFor="">City </label>
-                            <input type="text" name="city" id="" />
+                            <input type="text" name="city" id="" defaultValue={address?.city} />
                         </div>
 
                         <div>
                             <label htmlFor="">State </label>
-                            <input type="text" name="state" id="" />
+                            <input type="text" name="state" id="" defaultValue={address?.state} />
                         </div>
 
                         <div>
                             <label htmlFor="">ZIP Code </label>
-                            <input type="number" name="zipCode" id="" />
+                            <input type="number" name="zipCode" id="" defaultValue={address?.zipCode} />
                         </div>
 
                         <div>
                             <label htmlFor="">Country </label>
-                            <input type="text" name="country" id="" />
+                            <input type="text" name="country" id="" defaultValue={address?.country} />
                         </div>
                     </section>
 
                     <section className={styles.descriptionAndEmainOptArea}>
                         <div>
                             <label htmlFor="">Email Opt Out </label>
-                            <input type="checkbox" name="emailOptOut" id="" />
+                            <input type="checkbox" name="emailOptOut" id="" defaultValue={emailOptOut} />
                         </div>
 
                         <div className={styles.descriptionInfo}>
                             <label htmlFor="">Description </label>
-                            <textarea name="description" id="" cols="30" rows="10"></textarea>
+                            <textarea name="description" id="" cols="30" rows="10" defaultValue={description}></textarea>
                         </div>
                     </section>
                     <div className={styles.createButton}>

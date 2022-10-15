@@ -1,7 +1,8 @@
 import React from 'react'
-import ComponentContainer from '../ComponentContainer/ComponentContainer'
+import ComponentContainer from '../ComponentContainer/ComponentContainer';
 
 function Deals() {
+
     return (
         <div>
             <ComponentContainer name={'Deal'} />
@@ -9,4 +10,4 @@ function Deals() {
     )
 }
 
-export default Deals
+export default Deals;

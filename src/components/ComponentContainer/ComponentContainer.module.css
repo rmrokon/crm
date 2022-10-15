@@ -1,5 +1,10 @@
 .container {
+    position: relative;
+    top: 0;
+    left: 8vw;
     margin-top: 2vh;
+    width: 92vw;
+    overflow-x: hidden;
 }
 
 .header {
@@ -13,7 +18,7 @@
     border: 0;
     border-radius: 8px 0 0 8px;
     padding: 8px 16px;
-    background: linear-gradient(to right, rgb(31, 60, 60), rgb(69, 78, 97));
+    background: rgb(15, 77, 77);
     color: white;
 
 }
@@ -70,7 +75,7 @@ li:hover {
     border: 1px solid lightgray;
     border-radius: 8px;
     background-color: rgba(112, 128, 144, 0.382);
-    color: black;
+    color: rgb(15, 77, 77);
     margin-right: 16px;
 }
 
@@ -86,16 +91,17 @@ li:hover {
 .tableAndFilters {
     display: flex;
     justify-content: space-between;
-    height: calc(87vh - 120px);
+    height: calc(95vh - 95px);
 }
 
 .table {
-    background-color: cyan;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .filters {
     background-color: bisque;
     width: 30%;
     display: none;
+    overflow-x: hidden;
 }

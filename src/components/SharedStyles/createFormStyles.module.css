@@ -1,0 +1,137 @@
+.formContainer {
+    font-family: 'Raleway', sans-serif;
+}
+
+.formHeader {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.formHeader>h3 {
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+.cancelBtn,
+.saveLeadBtn {
+    border: none;
+    padding: 12px 16px;
+    width: 10vw;
+    border-radius: 8px 0 0 8px;
+    background-color: darkcyan;
+    color: white;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.saveLeadBtn {
+    border-radius: 0 8px 8px 0;
+    border-left: 1px solid gray;
+}
+
+input {
+    width: 15vw;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+input:focus {
+    border: 1px solid darkcyan;
+    outline: none;
+}
+
+.image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dataLists {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    gap: 1vh;
+}
+
+.dataLists>div {
+    display: flex;
+    align-items: center;
+}
+
+.dataLists>div>label {
+    display: block;
+    width: 10vw;
+    text-align: right;
+    margin-right: 1vw;
+}
+
+.information {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    margin-top: 5vh;
+}
+
+.information>div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vh;
+}
+
+.information>div>label {
+    display: block;
+    width: 10vw;
+    text-align: right;
+    margin-right: 1vw;
+}
+
+.descriptionAndEmainOptArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.descriptionAndEmainOptArea>div>input {
+    width: auto;
+}
+
+.descriptionInfo {
+    display: flex;
+    align-items: center;
+    gap: 2vh;
+    margin-top: 5vh;
+    width: 50%;
+}
+
+.descriptionInfo>textarea {
+    width: 100%;
+    resize: vertical;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.descriptionInfo>textarea:focus {
+    outline: 1px solid darkcyan;
+}
+
+.createButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+}
+
+.createButton>input {
+    width: auto;
+    border: none;
+    border-radius: 8px;
+    padding: 22px 64px;
+    background-color: rgb(15, 77, 77);
+    color: white;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+}

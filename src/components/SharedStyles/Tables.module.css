@@ -1,0 +1,26 @@
+.table {
+    width: 100%;
+}
+
+.tableHeadRow>th {
+    padding: 8px;
+    font-family: monospace;
+    font-size: 16px;
+    border-right: 1px solid gray;
+}
+
+.tableHeadRow>th>input[type='checkbox'],
+.tableBody>tr>td>input[type='checkbox'] {
+    width: 16px;
+}
+
+.tableBody>tr>td {
+    text-align: center;
+    font-family: monospace;
+    font-size: 16px;
+}
+
+.tableBody>tr>td>a {
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -2,88 +2,74 @@ import React from 'react';
 import styles from '../SharedStyles/createFormStyles.module.css';
 import axios from 'axios';
 
-function CreatNewLead() {
-    const leadOwners = ["Rokon", "Naeim", "Reza"];
-    const leadSource = ['Advertisement', 'LinkedIn', 'Facebook', 'Instagram'];
-    const leadStatus = ['Attempted to Contact', 'Contact in Future', 'Contacted', 'Junk Lead', 'Lost Lead', 'Not COntacted'];
+function CreateNewAccount() {
+    const accountOwners = ["Rokon", "Naeim", "Reza"];
+    const ownership = ['Other', 'Private', 'Public', 'Subsidiary'];
+    const industry = ['ASP (Application Service Provider)', 'Data/Telecom OEM', 'ERP'];
     const rating = ['Acquired', 'Active', 'Market Failed', 'Project Cancelled', 'Shut Down'];
+    const accountType = ['Analyst', 'Competitor', 'Customer', 'Distributor', 'Integrator', 'Investor', 'Other'];
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const leadOwner = e.target.leadOwner.value || null;
-        const leadSource = e.target.leadSource.value || null;
-        const leadStatus = e.target.leadStatus.value || null;
-        const rating = e.target.rating.value || null;
-        const firstName = e.target.firstName.value || null;
-        const lastName = e.target.lastName.value || null;
-        const leadName = e.target.title.value || null;
-        const company = e.target.company.value || null;
-        const mobile = e.target.mobile.value || null;
-        const email = e.target.email.value || null;
-        const street = e.target.street.value || null;
-        const city = e.target.city.value || null;
-        const state = e.target.state.value || null;
-        const zipCode = e.target.zipCode.value || null;
-        const country = e.target.country.value || null;
-        const emailOptOut = e.target.emailOptOut.value || null;
-        const description = e.target.description.value || null;
 
-
-        const lead = {
-            leadOwner,
-            leadSource,
-            leadStatus,
-            rating,
-            firstName,
-            lastName,
-            leadName,
-            company,
-            mobile,
-            email,
-            description,
+        const account = {
+            accountOwner: e.target.accountOwner.value,
+            ownership: e.target.ownership.value,
+            industry: e.target.industry.value,
+            accountType: e.target.accountType.value,
+            rating: e.target.rating.value,
+            accountName: e.target.accountName.value,
+            firstName: e.target.firstName.value,
+            lastName: e.target.lastName.value,
+            company: e.target.company.value,
+            email: e.target.email.value,
+            website: e.target.website.value,
+            skype: e.target.skype.value,
+            phone: e.target.phone.value,
+            mobile: e.target.mobile.value,
+            fax: e.target.fax.value,
             address: {
-                street,
-                city,
-                state,
-                zipCode,
-                country,
-                emailOptOut
-            }
-        };
+                street: e.target.street.value,
+                city: e.target.city.value,
+                state: e.target.state.value,
+                zipCode: e.target.zipCode.value,
+                country: e.target.country.value,
+            },
+            emailOptOut: e.target.emailOptOut.value,
+            description: e.target.description.value,
+        }
 
-        axios.post('http://localhost:5000/api/v1/lead', lead)
+        axios.post('http://localhost:5000/api/v1/account', account)
             .then(response => {
                 if (response.data.status === 'success') {
-                    alert('Lead saved!');
+                    alert('Account saved!');
                 }
                 return response.data;
             })
-
-
     }
-
     return (
-        <div className={styles.formContainer}>
+        <div>
             <header className={styles.formHeader}>
-                <h3>Create Lead</h3>
+                <h3>Create Account</h3>
                 <div>
-                    <button className={styles.cancelBtn}>Cancel</button>
-                    <button className={styles.saveLeadBtn}>Save</button>
+                    <button>Cancel</button>
+                    <button>Save and New</button>
+                    <button>Save</button>
                 </div>
             </header>
             <main>
                 <form action="" onSubmit={handleSubmit}>
                     <div className={styles.image}>
-                        <h3>Lead Image</h3>
+                        <h3>Account Image</h3>
                         <input type="file" name="" id="" placeholder='' />
                     </div>
                     <div className={styles.dataLists}>
                         <div>
-                            <label htmlFor="">Lead Owner </label>
-                            <input type="text" list='leadOwner' name='leadOwner' />
-                            <datalist id='leadOwner'>
+                            <label htmlFor="">Account Owner: </label>
+                            <input type="text" list='accountOwner' name='accountOwner' />
+                            <datalist id='accountOwner'>
                                 {
-                                    leadOwners.map((owner, index) =>
+                                    accountOwners.map((owner, index) =>
                                         <option key={index} value={owner}>{owner}</option>
                                     )
                                 }
@@ -91,11 +77,11 @@ function CreatNewLead() {
                         </div>
 
                         <div>
-                            <label htmlFor="">Lead Source </label>
-                            <input type="text" list='leadSource' name='leadSource' />
-                            <datalist id='leadSource'>
+                            <label htmlFor="">Ownership: </label>
+                            <input type="text" list='ownership' name='ownership' />
+                            <datalist id='ownership'>
                                 {
-                                    leadSource.map((source, index) =>
+                                    ownership.map((source, index) =>
                                         <option key={index} value={source}>{source}</option>
                                     )
                                 }
@@ -103,11 +89,22 @@ function CreatNewLead() {
                         </div>
 
                         <div>
-                            <label htmlFor="">Lead Status</label>
-                            <input type="text" list='leadStatus' name='leadStatus' />
-                            <datalist id='leadStatus'>
+                            <label htmlFor="">Industry: </label>
+                            <input type="text" list='industry' name='industry' />
+                            <datalist id='industry'>
                                 {
-                                    leadStatus.map((source, index) =>
+                                    industry.map((source, index) =>
+                                        <option key={index} value={source}>{source}</option>
+                                    )
+                                }
+                            </datalist>
+                        </div>
+                        <div>
+                            <label htmlFor="">Account Type: </label>
+                            <input type="text" list='accountType' name='accountType' />
+                            <datalist id='accountType'>
+                                {
+                                    accountType.map((source, index) =>
                                         <option key={index} value={source}>{source}</option>
                                     )
                                 }
@@ -115,7 +112,7 @@ function CreatNewLead() {
                         </div>
 
                         <div>
-                            <label htmlFor="">Rating </label>
+                            <label htmlFor="">Rating: </label>
                             <input type="text" list='rating' name='rating' />
                             <datalist id='rating'>
                                 {
@@ -137,8 +134,8 @@ function CreatNewLead() {
                             <input type="text" name="lastName" id="" required />
                         </div>
                         <div>
-                            <label htmlFor="">Title</label>
-                            <input type="text" name="title" id="" required />
+                            <label htmlFor="">Account Name</label>
+                            <input type="text" name="accountName" id="" required />
                         </div>
                         <div>
                             <label htmlFor="">Company </label>
@@ -149,12 +146,30 @@ function CreatNewLead() {
                             <label htmlFor="">Email </label>
                             <input type="email" name="email" id="" />
                         </div>
+                        <div>
+                            <label htmlFor="">Website: </label>
+                            <input type="text" name="website" id="" />
+                        </div>
 
                         <div>
-                            <label htmlFor="">Mobile </label>
+                            <label htmlFor="">Skype ID: </label>
+                            <input type="text" name="skype" id="" />
+                        </div>
+
+                        <div>
+                            <label htmlFor="">Phone: </label>
+                            <input type="number" name="phone" id="" />
+                        </div>
+
+                        <div>
+                            <label htmlFor="">Mobile: </label>
                             <input type="number" name="mobile" id="" />
                         </div>
 
+                        <div>
+                            <label htmlFor="">Fax: </label>
+                            <input type="number" name="fax" id="" />
+                        </div>
                     </section>
 
                     <section className={styles.information}>
@@ -189,7 +204,6 @@ function CreatNewLead() {
                             <label htmlFor="">Email Opt Out </label>
                             <input type="checkbox" name="emailOptOut" id="" />
                         </div>
-
                         <div className={styles.descriptionInfo}>
                             <label htmlFor="">Description </label>
                             <textarea name="description" id="" cols="30" rows="10"></textarea>
@@ -198,10 +212,11 @@ function CreatNewLead() {
                     <div className={styles.createButton}>
                         <input type="submit" value="Save" />
                     </div>
+
                 </form>
             </main>
         </div>
     )
 }
 
-export default CreatNewLead
+export default CreateNewAccount

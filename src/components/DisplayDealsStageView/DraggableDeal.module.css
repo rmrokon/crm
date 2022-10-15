@@ -1,0 +1,17 @@
+.draggableDeal {
+    border: 1px solid rgba(128, 128, 128, 0.541);
+    padding: 0px;
+    cursor: grab;
+}
+
+.draggableDeal>h3,
+p {
+    font-size: 14px;
+    padding: 2px;
+    margin: 0;
+}
+
+.draggableDeal>h3>a {
+    text-decoration: none;
+    color: darkcyan;
+}
