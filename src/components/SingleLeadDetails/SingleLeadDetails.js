@@ -78,8 +78,8 @@ function CreatNewLead() {
             })
     }
 
-    const handleChoosePhoto = (event) => {
-        event.preventDefault();
+    const handleChoosePhoto = (e) => {
+        e.preventDefault();
         return imageInputRef.current?.click();
     }
 

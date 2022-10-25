@@ -61,7 +61,7 @@ function CreateNewDeal() {
     }
 
     return (
-        <div>
+        <div className={styles.formContainer}>
             <header className={styles.formHeader}>
                 <h3>Deal: {dealName}</h3>
                 {!edit && <button onClick={handleEdit} className={styles.editBtn}>Edit <i class="fas fa-pen"></i></button>}
@@ -74,7 +74,13 @@ function CreateNewDeal() {
                 <section className={styles.dataLists}>
                     <div>
                         <label htmlFor="">Deal Owner </label>
-                        <input type="text" list='dealOwners' name='dealOwner' defaultValue={dealOwner} />
+                        <input
+                            type="text"
+                            list='dealOwners'
+                            name='dealOwner'
+                            defaultValue={dealOwner}
+                            readOnly={!edit}
+                        />
                         <datalist id='dealOwners'>
                             {
                                 dealOwners.map((owner, index) =>
@@ -86,7 +92,13 @@ function CreateNewDeal() {
 
                     <div>
                         <label htmlFor="">Lead Source </label>
-                        <input type="text" list='leadSource' name='leadSource' defaultValue={leadSource} />
+                        <input
+                            type="text"
+                            list='leadSource'
+                            name='leadSource'
+                            defaultValue={leadSource}
+                            readOnly={!edit}
+                        />
                         <datalist id='leadSource'>
                             {
                                 leadSources.map((source, index) =>
@@ -98,7 +110,13 @@ function CreateNewDeal() {
 
                     <div>
                         <label htmlFor="">Account Name </label>
-                        <input type="text" list='accountNames' name='accountName' defaultValue={accountName} />
+                        <input
+                            type="text"
+                            list='accountNames'
+                            name='accountName'
+                            defaultValue={accountName}
+                            readOnly={!edit}
+                        />
                         <datalist id='accountNames'>
                             {
                                 accountNames.map((source, index) =>
@@ -110,7 +128,13 @@ function CreateNewDeal() {
 
                     <div>
                         <label htmlFor="">Type </label>
-                        <input type="text" list='rating' name='rating' defaultValue={rating} />
+                        <input
+                            type="text"
+                            list='rating'
+                            name='rating'
+                            defaultValue={rating}
+                            readOnly={!edit}
+                        />
                         <datalist id='rating'>
                             {
                                 dealType.map((source, index) =>
@@ -121,7 +145,13 @@ function CreateNewDeal() {
                     </div>
                     <div>
                         <label htmlFor="">Stage </label>
-                        <input type="text" list='stage' name='stage' defaultValue={stage} />
+                        <input
+                            type="text"
+                            list='stage'
+                            name='stage'
+                            defaultValue={stage}
+                            readOnly={!edit}
+                        />
                         <datalist id='stage'>
                             {
                                 dealStage.map((source, index) =>
@@ -132,7 +162,13 @@ function CreateNewDeal() {
                     </div>
                     <div>
                         <label htmlFor="">Contact Name </label>
-                        <input type="text" list='contactName' name='contactName' defaultValue={contactName} />
+                        <input
+                            type="text"
+                            list='contactName'
+                            name='contactName'
+                            defaultValue={contactName}
+                            readOnly={!edit}
+                        />
                         <datalist id='contactName'>
                             {
                                 contactNames.map((source, index) =>
@@ -143,7 +179,13 @@ function CreateNewDeal() {
                     </div>
                     <div>
                         <label htmlFor="">Campaign Source </label>
-                        <input type="text" list='campaignSource' name='campaignSource' defaultValue={campaignSource} />
+                        <input
+                            type="text"
+                            list='campaignSource'
+                            name='campaignSource'
+                            defaultValue={campaignSource}
+                            readOnly={!edit}
+                        />
                         <datalist id='campaignSource'>
                             {
                                 campaignSources.map((source, index) =>
@@ -156,36 +198,78 @@ function CreateNewDeal() {
                 <section className={styles.information}>
                     <div>
                         <label htmlFor="">Deal Name </label>
-                        <input type="text" name="dealName" id="" defaultValue={dealName} />
+                        <input
+                            type="text"
+                            name="dealName"
+                            id=""
+                            defaultValue={dealName}
+                            readOnly={!edit}
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="">Next Step </label>
-                        <input type="text" name="nextStep" id="" defadefaultValue={nextStep} />
+                        <input
+                            type="text"
+                            name="nextStep"
+                            id=""
+                            defadefaultValue={nextStep}
+                            readOnly={!edit}
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="">Amount </label>
-                        <input type="number" name="amount" id="" defaultValue={amount} />
+                        <input
+                            type="number"
+                            name="amount" id=""
+                            defaultValue={amount}
+                            readOnly={!edit}
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="">Probability (%) </label>
-                        <input type="number" name="probability" id="" defaultValue={probability} />
+                        <input
+                            type="number"
+                            name="probability"
+                            id=""
+                            defaultValue={probability}
+                            readOnly={!edit}
+                        />
                     </div>
                     <div>
                         <label htmlFor="">Expected Revenue </label>
-                        <input type="number" name="expectedRevenue" id="" defaultValue={expectedRevenue} />
+                        <input
+                            type="number"
+                            name="expectedRevenue"
+                            id=""
+                            defaultValue={expectedRevenue}
+                            readOnly={!edit}
+                        />
                     </div>
                     <div>
                         <label htmlFor="">Closing Date </label>
-                        <input type="date" name="closingDate" id="" defaultValue={closingDate} />
+                        <input
+                            type="date"
+                            name="closingDate"
+                            id=""
+                            defaultValue={closingDate}
+                            readOnly={!edit}
+                        />
                     </div>
                 </section>
                 <section className={styles.descriptionAndEmainOptArea}>
                     <div className={styles.descriptionInfo}>
                         <label htmlFor="">Description </label>
-                        <textarea name="description" id="" cols="30" rows="10" defaultValue={description}></textarea>
+                        <textarea
+                            name="description"
+                            id=""
+                            cols="30"
+                            rows="10"
+                            defaultValue={description}
+                            readOnly={!edit}
+                        ></textarea>
                     </div>
                 </section>
                 {edit && <div className={styles.createButton}>

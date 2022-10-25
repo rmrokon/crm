@@ -96,7 +96,7 @@ function CreateNewAccount() {
     }
 
     return (
-        <div>
+        <div className={styles.formContainer}>
             <header className={styles.formHeader}>
                 <h3>Account : {accountName}</h3>
                 {!edit && <button onClick={handleEdit} className={styles.editBtn}>Edit <i class="fas fa-pen"></i></button>}
