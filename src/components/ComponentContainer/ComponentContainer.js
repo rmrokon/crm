@@ -11,6 +11,7 @@ function ComponentContainer({ name }) {
     const [isImportLinksOpen, setImportLinksOpen] = useState(false);
     const [isActionLinksOpen, setActionLinksOpen] = useState(false);
     const [isFiltersOpen, setFiltersOpen] = useState(false);
+    const [dealView, setDealView] = useState('Stage View');
 
     const toggleImportLinks = () => {
         setImportLinksOpen(!isImportLinksOpen);
@@ -26,6 +27,11 @@ function ComponentContainer({ name }) {
     const closeLinks = () => {
         isImportLinksOpen && setImportLinksOpen(false);
         isActionLinksOpen && setActionLinksOpen(false);
+    }
+
+    const handleDealView = (view) => {
+        setDealView(view);
+        console.log(view);
     }
 
     const displayImportLinks = isImportLinksOpen ? 'block' : '';
@@ -67,6 +73,12 @@ function ComponentContainer({ name }) {
 
                 </div>
                 <div className={styles.filtersAndTypes}>
+                    {
+                        name === 'Deal' && <select className={styles.selectDealView} name="" id="" onChange={(e) => handleDealView(e.target.value)}>
+                            <option className={styles.selectDealViewOptions} value="Stage View" selected>Stage View</option>
+                            <option className={styles.selectDealViewOptions} value="Table View">Table View</option>
+                        </select>
+                    }
                     <button onClick={toggleFilters} className={styles.togglefiltersBtn}>
 
                         <i class="fas fa-filter"></i>
@@ -87,7 +99,8 @@ function ComponentContainer({ name }) {
                     {name === 'Lead' && <DisplayLeadsTable />}
                     {name === 'Contact' && <DisplayContactsTable />}
                     {name === 'Account' && <DisplayAccountsTable />}
-                    {name === 'Deal' && <DisplayDealsStageView />}
+                    {(name === 'Deal' && dealView === 'Stage View') && <DisplayDealsStageView />}
+                    {(name === 'Deal' && dealView === 'Table View') && <DisplayDealsTable />}
                 </div>
                 <div style={{ display: `${displayFilters}` }} className={styles.filters}>
                     filters

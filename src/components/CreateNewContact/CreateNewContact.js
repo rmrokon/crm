@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styles from '../SharedStyles/createFormStyles.module.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreateNewContact() {
     const contactOwner = ["Rokon", "Naeim", "Reza"];
     const leadSource = ['Advertisement', 'LinkedIn', 'Facebook', 'Instagram'];
-    const dispatch = useDispatch();
+    const imageInputRef = useRef(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [imageUrl, setImageUrl] = useState('');
+    const navigate = useNavigate();
+    const imageAPIkey = "ba174ce3bc57048f9cd66363c4b7ddfe";
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -33,6 +38,7 @@ function CreateNewContact() {
 
 
         const contact = {
+            imageUrl,
             contactOwner,
             accountName,
             leadSource,
@@ -66,21 +72,48 @@ function CreateNewContact() {
             })
 
     }
+
+    const handleChoosePhoto = () => {
+        return imageInputRef.current?.click();
+    }
+
+    const handleImageChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    }
+
+    const handleFileUpload = () => {
+        const formData = new FormData();
+        formData.append('image', selectedFile, selectedFile.name);
+        const url = `https://api.imgbb.com/1/upload?key=${imageAPIkey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        }).then(res => res.json()).then(result => {
+            const image = result?.data?.url;
+            setImageUrl(image);
+        })
+    }
+
+    const handleCancel = () => {
+        navigate('/contacts');
+    }
+
     return (
-        <div>
+        <div className={styles.formContainer}>
             <header className={styles.formHeader}>
                 <h3>Create Contact</h3>
-                <div>
-                    <button>Cancel</button>
-                    <button>Save and New</button>
-                    <button>Save</button>
-                </div>
             </header>
             <main>
                 <form action="" onSubmit={handleSubmit}>
-                    <div className={styles.image}>
-                        <h3>Contact Image</h3>
-                        <input type="file" name="" id="" placeholder='' />
+                    <div className={styles.displayImage}>
+                        <img src={imageUrl} alt="" />
+                        <input onChange={handleImageChange} style={{ display: 'none' }} type="file" name="" id="" placeholder='' ref={imageInputRef} />
+                        <div>
+                            <button className={styles.choosePhoto} onClick={handleChoosePhoto}>
+                                Choose
+                            </button>
+                            <button className={styles.uploadPhoto} onClick={handleFileUpload}>Upload</button>
+                        </div>
                     </div>
                     <div className={styles.dataLists}>
                         <div>
@@ -206,6 +239,7 @@ function CreateNewContact() {
                     </section>
                     <div className={styles.createButton}>
                         <input type="submit" value="Save" />
+                        <button onClick={handleCancel} className={styles.cancelBtn}>Cancel</button>
                     </div>
                 </form>
             </main>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from '../SharedStyles/createFormStyles.module.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -6,8 +6,9 @@ import { useParams } from 'react-router-dom';
 function CreateNewAccount() {
     const { id } = useParams();
     const [account, setAccount] = useState({});
+    const [edit, setEdit] = useState(false);
     const { accountOwner, ownership, industry, accountType, rating, accountName, firstName, lastName,
-        company, email, website, skype, phone, mobile, fax, emailOptOut, description, address } = account;
+        company, email, website, skype, phone, mobile, fax, emailOptOut, description, address, imageUrl } = account;
 
     useEffect(() => {
         axios.get(`http://localhost:5000/api/v1/account/${id}`)
@@ -19,12 +20,17 @@ function CreateNewAccount() {
     const industries = ['ASP (Application Service Provider)', 'Data/Telecom OEM', 'ERP'];
     const ratings = ['Acquired', 'Active', 'Market Failed', 'Project Cancelled', 'Shut Down'];
     const accountTypes = ['Analyst', 'Competitor', 'Customer', 'Distributor', 'Integrator', 'Investor', 'Other'];
+    const imageInputRef = useRef(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [photoUrl, setPhotoUrl] = useState('');
+    const imageAPIkey = "ba174ce3bc57048f9cd66363c4b7ddfe";
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const account = {
             _id: id,
+            imageUrl: photoUrl,
             accountOwner: e.target.accountOwner.value,
             ownership: e.target.ownership.value,
             industry: e.target.industry.value,
@@ -59,21 +65,60 @@ function CreateNewAccount() {
                 return response.data;
             })
     }
+
+    const handleChoosePhoto = (e) => {
+        e.preventDefault();
+        return imageInputRef.current?.click();
+    }
+
+    const handleImageChange = (e) => {
+        e.preventDefault();
+        setSelectedFile(e.target.files[0]);
+    }
+
+    const handleFileUpload = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('image', selectedFile, selectedFile.name);
+        const url = `https://api.imgbb.com/1/upload?key=${imageAPIkey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        }).then(res => res.json()).then(result => {
+            const image = result?.data?.url;
+            console.log(image);
+            setPhotoUrl(image);
+        })
+    }
+
+    const handleEdit = () => {
+        setEdit(!edit);
+    }
+
     return (
         <div>
             <header className={styles.formHeader}>
                 <h3>Account : {accountName}</h3>
-                <div>
-                    <button>Cancel</button>
-                    <button>Save and New</button>
-                    <button>Save</button>
-                </div>
+                {!edit && <button onClick={handleEdit} className={styles.editBtn}>Edit <i class="fas fa-pen"></i></button>}
+
             </header>
             <main>
                 <form action="" onSubmit={handleSubmit}>
-                    <div className={styles.image}>
-                        <h3>Account Image</h3>
-                        <input type="file" name="" id="" placeholder='' />
+                    {edit && <div className={styles.createButton}>
+                        <input type="submit" value="Save" />
+                        <button onClick={handleEdit} className={styles.cancelBtn}>Cancel</button>
+                    </div>}
+                    <div className={styles.displayImage}>
+                        <img src={photoUrl} alt="" />
+                        <input onChange={handleImageChange} style={{ display: 'none' }} type="file" name="" id="" placeholder='' ref={imageInputRef} />
+                        {
+                            edit && <div>
+                                <button className={styles.choosePhoto} onClick={handleChoosePhoto}>
+                                    Choose
+                                </button>
+                                <button className={styles.uploadPhoto} onClick={handleFileUpload}>Upload</button>
+                            </div>
+                        }
                     </div>
                     <div className={styles.dataLists}>
                         <div>
@@ -221,10 +266,10 @@ function CreateNewAccount() {
                             <textarea name="description" id="" cols="30" rows="10" defaultValue={description}></textarea>
                         </div>
                     </section>
-                    <div className={styles.createButton}>
+                    {edit && <div className={styles.createButton}>
                         <input type="submit" value="Save" />
-                    </div>
-
+                        <button onClick={handleEdit} className={styles.cancelBtn}>Cancel</button>
+                    </div>}
                 </form>
             </main>
         </div>

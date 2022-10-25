@@ -13,7 +13,6 @@ function DisplayContactsTable() {
         dispatch(fetchContacts());
     }, [])
 
-    console.log(contactsData);
     if (contactsData.loading) {
         return <h4>Loading...</h4>;
     }
@@ -39,7 +38,7 @@ function DisplayContactsTable() {
                         <td>
                             <input type="checkbox" />
                         </td>
-                        <td><Link to={''}>{contact.contactName}</Link></td>
+                        <td><Link to={`/contact/${contact._id}`}>{contact.contactName}</Link></td>
                         <td>{contact.accountName}</td>
                         <td>{contact.email}</td>
                         <td>{contact.phone}</td>

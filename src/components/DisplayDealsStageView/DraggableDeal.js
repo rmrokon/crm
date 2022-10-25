@@ -17,7 +17,7 @@ function DraggableDeal({ deal }) {
             ref={drag}
             style={{ border: isDragging ? '2px solid darkcyan' : '' }}
             className={styles.draggableDeal}>
-            <h3><NavLink to={''}>{dealName}</NavLink></h3>
+            <h3><NavLink to={`/deal/${_id}`}>{dealName}</NavLink></h3>
             <p>{dealOwner}</p>
             <p>${amount}</p>
             <p>Closing Date: {closingDate}</p>

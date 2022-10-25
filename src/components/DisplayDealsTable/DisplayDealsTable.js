@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchDeals } from '../../redux/Deals';
 import styles from '../SharedStyles/Tables.module.css';
 
-function DisplayDealsTable({ content }) {
+function DisplayDealsTable() {
+    const dealsData = useSelector(state => state.deals);
+    let deals;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchDeals());
+    }, [])
+
+    if (dealsData.loading) {
+        return <h4>Loading...</h4>;
+    }
+    if (dealsData.deals.data) {
+        deals = dealsData.deals.data;
+    }
     return (
         <table className={styles.table}>
             <thead>
@@ -17,15 +33,15 @@ function DisplayDealsTable({ content }) {
             </thead>
             <tbody className={styles.tableBody}>
                 {
-                    content.map((item, index) => <tr key={index}>
+                    deals?.map(deal => <tr key={deal._id}>
                         <td>
                             <input type="checkbox" />
                         </td>
-                        <td><Link to={''}>{item.dealOwner}</Link></td>
-                        <td>{item.accountName}</td>
-                        <td>{item.stage}</td>
-                        <td>{item.amount}</td>
-                        <td>{item.expectedRevenue}</td>
+                        <td><Link to={`/deal/${deal._id}`}>{deal.dealOwner}</Link></td>
+                        <td>{deal.accountName}</td>
+                        <td>{deal.stage}</td>
+                        <td>{deal.amount}</td>
+                        <td>{deal.expectedRevenue}</td>
                     </tr>)
                 }
             </tbody>

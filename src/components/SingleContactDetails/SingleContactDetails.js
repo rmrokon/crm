@@ -3,38 +3,37 @@ import styles from '../SharedStyles/createFormStyles.module.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-function CreatNewLead() {
+function CreateNewContact() {
     const { id } = useParams();
-    const [lead, setLead] = useState({});
+    const [contact, setContact] = useState({});
     const [edit, setEdit] = useState(false);
-    const leadOwners = ["Rokon", "Naeim", "Reza"];
+    const contactOwners = ["Rokon", "Naeim", "Reza"];
     const leadSources = ['Advertisement', 'LinkedIn', 'Facebook', 'Instagram'];
-    const leadStatuses = ['Attempted to Contact', 'Contact in Future', 'Contacted', 'Junk Lead', 'Lost Lead', 'Not COntacted'];
-    const ratings = ['Acquired', 'Active', 'Market Failed', 'Project Cancelled', 'Shut Down'];
+
     const imageInputRef = useRef(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [photoUrl, setPhotoUrl] = useState('');
     const imageAPIkey = "ba174ce3bc57048f9cd66363c4b7ddfe";
 
-    const { leadOwner, leadSource, leadStatus, rating, firstName, lastName, leadName, company, mobile, email, emailOptOut, description, address } = lead;
+    const { contactOwner, accountName, leadSource, firstName, contactName, lastName, company, mobile, email, website, emailOptOut, description, skype, phone, fax, address } = contact;
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/lead/${id}`)
-            .then(response => setLead(response.data.data))
+        axios.get(`http://localhost:5000/api/v1/contact/${id}`)
+            .then(response => setContact(response.data.data))
     }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const leadOwner = e.target.leadOwner.value || null;
+        const contactOwner = e.target.contactOwner.value || null;
+        const accountName = e.target.accountName.value || null;
         const leadSource = e.target.leadSource.value || null;
-        const leadStatus = e.target.leadStatus.value || null;
-        const rating = e.target.rating.value || null;
         const firstName = e.target.firstName.value || null;
+        const contactName = e.target.contactName.value || null;
         const lastName = e.target.lastName.value || null;
-        const leadName = e.target.title.value || null;
         const company = e.target.company.value || null;
         const mobile = e.target.mobile.value || null;
         const email = e.target.email.value || null;
+        const website = e.target.website.value || null;
         const street = e.target.street.value || null;
         const city = e.target.city.value || null;
         const state = e.target.state.value || null;
@@ -42,37 +41,43 @@ function CreatNewLead() {
         const country = e.target.country.value || null;
         const emailOptOut = e.target.emailOptOut.value || null;
         const description = e.target.description.value || null;
+        const skype = e.target.skype.value || null;
+        const phone = e.target.phone.value || null;
+        const fax = e.target.fax.value || null;
 
 
-        const lead = {
+        const contact = {
             _id: id,
             imageUrl: photoUrl,
-            leadOwner,
+            contactOwner,
+            accountName,
             leadSource,
-            leadStatus,
-            rating,
             firstName,
+            contactName,
             lastName,
-            leadName,
             company,
             mobile,
             email,
+            website,
             description,
+            phone,
+            fax,
+            skype,
+            emailOptOut,
             address: {
                 street,
                 city,
                 state,
                 zipCode,
-                country,
-                emailOptOut
+                country
             }
         };
-
-        axios.put('http://localhost:5000/api/v1/lead', lead)
+        console.log('Before api', contact);
+        axios.put('http://localhost:5000/api/v1/contact', contact)
             .then(response => {
-                if (response.data.status === 'success') {
+                if (response.data.data.modifiedCount === 1) {
+                    alert('Contact updated!');
                     setEdit(!edit);
-                    alert('Lead saved!');
                 }
                 return response.data;
             })
@@ -98,7 +103,6 @@ function CreatNewLead() {
             body: formData
         }).then(res => res.json()).then(result => {
             const image = result?.data?.url;
-            console.log(image);
             setPhotoUrl(image);
         })
     }
@@ -108,9 +112,9 @@ function CreatNewLead() {
     }
 
     return (
-        <div className={styles.formContainer}>
+        <div>
             <header className={styles.formHeader}>
-                <h3>Create Lead</h3>
+                <h3>Contact: {id}</h3>
                 {!edit && <button onClick={handleEdit} className={styles.editBtn}>Edit <i class="fas fa-pen"></i></button>}
             </header>
             <main>
@@ -133,11 +137,24 @@ function CreatNewLead() {
                     </div>
                     <div className={styles.dataLists}>
                         <div>
-                            <label htmlFor="">Lead Owner </label>
-                            <input type="text" list='leadOwner' name='leadOwner' defaultValue={leadOwner} />
-                            <datalist id='leadOwner'>
+                            <label htmlFor="">Contact Owner</label>
+                            <input type="text" list='contactOwner' name='contactOwner'
+                                defaultValue={contactOwner} />
+                            <datalist id='contactOwner'>
                                 {
-                                    leadOwners.map((owner, index) =>
+                                    contactOwners.map((owner, index) =>
+                                        <option key={index} value={owner}>{owner}</option>
+                                    )
+                                }
+                            </datalist>
+                        </div>
+                        <div>
+                            <label htmlFor="">Account Name</label>
+                            <input type="text" list='accountName' name='accountName'
+                                defaultValue={accountName} />
+                            <datalist id='accountName'>
+                                {
+                                    contactOwners.map((owner, index) =>
                                         <option key={index} value={owner}>{owner}</option>
                                     )
                                 }
@@ -145,7 +162,7 @@ function CreatNewLead() {
                         </div>
 
                         <div>
-                            <label htmlFor="">Lead Source </label>
+                            <label htmlFor="">Lead Source</label>
                             <input type="text" list='leadSource' name='leadSource' defaultValue={leadSource} />
                             <datalist id='leadSource'>
                                 {
@@ -155,97 +172,90 @@ function CreatNewLead() {
                                 }
                             </datalist>
                         </div>
-
-                        <div>
-                            <label htmlFor="">Lead Status</label>
-                            <input type="text" list='leadStatus' name='leadStatus' defaultValue={leadStatus} />
-                            <datalist id='leadStatus'>
-                                {
-                                    leadStatuses.map((source, index) =>
-                                        <option key={index} value={source}>{source}</option>
-                                    )
-                                }
-                            </datalist>
-                        </div>
-
-                        <div>
-                            <label htmlFor="">Rating </label>
-                            <input type="text" list='rating' name='rating' defaultValue={rating} />
-                            <datalist id='rating'>
-                                {
-                                    ratings.map((source, index) =>
-                                        <option key={index} value={source}>{source}</option>
-                                    )
-                                }
-                            </datalist>
-                        </div>
                     </div>
                     <section className={styles.information}>
                         <div>
-                            <label htmlFor="">First Name </label>
-                            <input type="text" name="firstName" id="" defaultValue={firstName} required />
+                            <label htmlFor="">First Name</label>
+                            <input type="text" name="firstName" id="" required defaultValue={firstName} />
                         </div>
 
                         <div>
-                            <label htmlFor="">Last Name </label>
-                            <input type="text" name="lastName" id="" defaultValue={lastName} required />
+                            <label htmlFor="">Last Name</label>
+                            <input type="text" name="lastName" id="" required defaultValue={lastName} />
                         </div>
                         <div>
                             <label htmlFor="">Title</label>
-                            <input type="text" name="title" id="" defaultValue={leadName} required />
+                            <input type="text" name="contactName" id="" required defaultValue={contactName} />
                         </div>
                         <div>
-                            <label htmlFor="">Company </label>
+                            <label htmlFor="">Company</label>
                             <input type="text" name="company" id="" defaultValue={company} />
                         </div>
 
                         <div>
-                            <label htmlFor="">Email </label>
+                            <label htmlFor="">Email</label>
                             <input type="email" name="email" id="" defaultValue={email} />
+                        </div>
+                        <div>
+                            <label htmlFor="">Website</label>
+                            <input type="text" name="website" id="" defaultValue={website} />
                         </div>
 
                         <div>
-                            <label htmlFor="">Mobile </label>
+                            <label htmlFor="">Skype ID</label>
+                            <input type="text" name="skype" id="" defaultValue={skype} />
+                        </div>
+
+                        <div>
+                            <label htmlFor="">Phone</label>
+                            <input type="number" name="phone" id="" defaultValue={phone} />
+                        </div>
+
+                        <div>
+                            <label htmlFor="">Mobile</label>
                             <input type="number" name="mobile" id="" defaultValue={mobile} />
                         </div>
 
+                        <div>
+                            <label htmlFor="">Fax</label>
+                            <input type="number" name="fax" id="" defaultValue={fax} />
+                        </div>
                     </section>
 
                     <section className={styles.information}>
                         <div>
-                            <label htmlFor="">Street </label>
+                            <label htmlFor="">Street</label>
                             <input type="text" name="street" id="" defaultValue={address?.street} />
                         </div>
 
                         <div>
-                            <label htmlFor="">City </label>
+                            <label htmlFor="">City</label>
                             <input type="text" name="city" id="" defaultValue={address?.city} />
                         </div>
 
                         <div>
-                            <label htmlFor="">State </label>
+                            <label htmlFor="">State</label>
                             <input type="text" name="state" id="" defaultValue={address?.state} />
                         </div>
 
                         <div>
-                            <label htmlFor="">ZIP Code </label>
+                            <label htmlFor="">ZIP Code</label>
                             <input type="number" name="zipCode" id="" defaultValue={address?.zipCode} />
                         </div>
 
                         <div>
-                            <label htmlFor="">Country </label>
+                            <label htmlFor="">Country</label>
                             <input type="text" name="country" id="" defaultValue={address?.country} />
                         </div>
                     </section>
 
                     <section className={styles.descriptionAndEmainOptArea}>
                         <div>
-                            <label htmlFor="">Email Opt Out </label>
+                            <label htmlFor="">Email Opt Out</label>
                             <input type="checkbox" name="emailOptOut" id="" defaultValue={emailOptOut} />
                         </div>
-
                         <div className={styles.descriptionInfo}>
-                            <label htmlFor="">Description </label>
+                            <label htmlFor="">Description</label>
                             <textarea name="description" id="" cols="30" rows="10" defaultValue={description}></textarea>
                         </div>
                     </section>
@@ -259,4 +269,4 @@ function CreatNewLead() {
     )
 }
 
-export default CreatNewLead
+export default CreateNewContact

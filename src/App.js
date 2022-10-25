@@ -13,6 +13,8 @@ import CreateNewContact from './components/CreateNewContact/CreateNewContact';
 import CreateNewDeal from './components/CreateNewDeal/CreateNewDeal';
 import SingleAccountDetails from './components/SingleAccountDetails/SingleAccountDetails';
 import SingleLeadDetails from './components/SingleLeadDetails/SingleLeadDetails';
+import SingleContactDetails from './components/SingleContactDetails/SingleContactDetails';
+import SingleDealDetails from './components/SingleDealDetails/SingleDealDetails';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -34,6 +36,8 @@ function App() {
           <Route path="/create/deal" element={<CreateNewDeal />} />
           <Route path='/account/:id' element={<SingleAccountDetails />} />
           <Route path='/lead/:id' element={<SingleLeadDetails />} />
+          <Route path='/contact/:id' element={<SingleContactDetails />} />
+          <Route path='/deal/:id' element={<SingleDealDetails />} />
 
         </Routes>
       </div>

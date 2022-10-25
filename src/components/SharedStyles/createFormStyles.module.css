@@ -8,10 +8,26 @@
     align-items: center;
 }
 
+.editBtn {
+    border: 0;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: darkcyan;
+}
+
+.editBtn:hover {
+    background-color: rgba(153, 189, 189, 0.395);
+}
+
 .formHeader>h3 {
     font-size: 24px;
     letter-spacing: 2px;
 }
+
 
 .cancelBtn,
 .saveLeadBtn {
@@ -42,12 +58,40 @@ input:focus {
     outline: none;
 }
 
-.image {
+.displayImage {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
+.displayImage>img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    margin-bottom: 2vh;
+}
+
+.choosePhoto,
+.uploadPhoto {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    background-color: rgb(15, 77, 77);
+    color: white;
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+    margin-right: 1vh;
+}
+
+.choosePhoto:hover,
+.uploadPhoto:hover {
+    background-color: rgba(153, 189, 189, 0.395);
+    color: darkcyan;
+    font-weight: 700;
+}
+
 
 .dataLists {
     display: grid;
@@ -93,6 +137,7 @@ input:focus {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    margin-bottom: 2vh;
 }
 
 .descriptionAndEmainOptArea>div>input {
@@ -122,16 +167,29 @@ input:focus {
 .createButton {
     display: flex;
     justify-content: center;
-    margin-top: 2vh;
+    margin: 2vh 0;
 }
 
-.createButton>input {
+.createButton>input,
+.cancelBtn {
     width: auto;
     border: none;
-    border-radius: 8px;
-    padding: 22px 64px;
+    border-radius: 8px 0 0 8px;
+    padding: 12px 24px;
     background-color: rgb(15, 77, 77);
     color: white;
     font-size: 18px;
     font-family: 'Raleway', sans-serif;
+}
+
+.cancelBtn {
+    border-radius: 0 8px 8px 0;
+    border-left: 1px solid rgb(13, 187, 187);
+}
+
+.cancelBtn:hover,
+.createButton>input:hover {
+    background-color: rgba(153, 189, 189, 0.395);
+    color: darkcyan;
+    font-weight: 700;
 }
