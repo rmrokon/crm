@@ -3,7 +3,7 @@ import styles from '../SharedStyles/createFormStyles.module.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-function CreateNewAccount() {
+function SingleAccountDetails() {
     const { id } = useParams();
     const [account, setAccount] = useState({});
     const [edit, setEdit] = useState(false);
@@ -98,18 +98,22 @@ function CreateNewAccount() {
     return (
         <div className={styles.formContainer}>
             <header className={styles.formHeader}>
-                <h3>Account : {accountName}</h3>
+                <h3>Account : {id}</h3>
                 {!edit && <button onClick={handleEdit} className={styles.editBtn}>Edit <i class="fas fa-pen"></i></button>}
 
             </header>
             <main>
-                <form action="" onSubmit={handleSubmit}>
+                <form
+                    className={styles.createItemForm}
+                    action=""
+                    onSubmit={handleSubmit}
+                >
                     {edit && <div className={styles.createButton}>
                         <input type="submit" value="Save" />
                         <button onClick={handleEdit} className={styles.cancelBtn}>Cancel</button>
                     </div>}
                     <div className={styles.displayImage}>
-                        <img src={photoUrl} alt="" />
+                        <img src={imageUrl} alt="" />
                         <input onChange={handleImageChange} style={{ display: 'none' }} type="file" name="" id="" placeholder='' ref={imageInputRef} />
                         {
                             edit && <div>
@@ -123,7 +127,11 @@ function CreateNewAccount() {
                     <div className={styles.dataLists}>
                         <div>
                             <label htmlFor="">Account Owner: </label>
-                            <input type="text" list='accountOwner' name='accountOwner' defaultValue={accountOwner} />
+                            <input
+                                type="text"
+                                list='accountOwner' name='accountOwner' defaultValue={accountOwner}
+                                readOnly={!edit}
+                            />
                             <datalist id='accountOwner'>
                                 {
                                     accountOwners.map((owner, index) =>
@@ -135,7 +143,13 @@ function CreateNewAccount() {
 
                         <div>
                             <label htmlFor="">Ownership: </label>
-                            <input type="text" list='ownership' name='ownership' defaultValue={ownership && ownership} />
+                            <input
+                                type="text"
+                                list='ownership'
+                                name='ownership'
+                                defaultValue={ownership && ownership}
+                                readOnly={!edit}
+                            />
                             <datalist id='ownership'>
                                 {
                                     ownerships.map((source, index) =>
@@ -147,7 +161,13 @@ function CreateNewAccount() {
 
                         <div>
                             <label htmlFor="">Industry: </label>
-                            <input type="text" list='industry' name='industry' defaultValue={industry && industry} />
+                            <input
+                                type="text"
+                                list='industry'
+                                name='industry'
+                                defaultValue={industry && industry}
+                                readOnly={!edit}
+                            />
                             <datalist id='industry'>
                                 {
                                     industries.map((source, index) =>
@@ -158,7 +178,13 @@ function CreateNewAccount() {
                         </div>
                         <div>
                             <label htmlFor="">Account Type: </label>
-                            <input type="text" list='accountType' name='accountType' defaultValue={accountType && accountType} />
+                            <input
+                                type="text"
+                                list='accountType'
+                                name='accountType'
+                                defaultValue={accountType && accountType}
+                                readOnly={!edit}
+                            />
                             <datalist id='accountType'>
                                 {
                                     accountTypes.map((source, index) =>
@@ -170,7 +196,13 @@ function CreateNewAccount() {
 
                         <div>
                             <label htmlFor="">Rating: </label>
-                            <input type="text" list='rating' name='rating' defaultValue={rating && rating} />
+                            <input
+                                type="text"
+                                list='rating'
+                                name='rating'
+                                defaultValue={rating && rating}
+                                readOnly={!edit}
+                            />
                             <datalist id='rating'>
                                 {
                                     ratings.map((source, index) =>
@@ -183,87 +215,193 @@ function CreateNewAccount() {
                     <section className={styles.information}>
                         <div>
                             <label htmlFor="">First Name </label>
-                            <input type="text" name="firstName" id="" defaultValue={firstName} required />
+                            <input
+                                type="text"
+                                name="firstName"
+                                id=""
+                                defaultValue={firstName}
+                                required
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Last Name </label>
-                            <input type="text" name="lastName" id="" defaultValue={lastName} required />
+                            <input
+                                type="text"
+                                name="lastName"
+                                id=""
+                                defaultValue={lastName}
+                                required
+                                readOnly={!edit}
+                            />
                         </div>
                         <div>
                             <label htmlFor="">Account Name</label>
-                            <input type="text" name="accountName" id="" defaultValue={accountName && accountName} required />
+                            <input
+                                type="text"
+                                name="accountName"
+                                id=""
+                                defaultValue={accountName && accountName}
+                                required
+                                readOnly={!edit}
+                            />
                         </div>
                         <div>
                             <label htmlFor="">Company </label>
-                            <input type="text" name="company" id="" defaultValue={company && company} />
+                            <input
+                                type="text"
+                                name="company"
+                                id=""
+                                defaultValue={company && company}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Email </label>
-                            <input type="email" name="email" id="" defaultValue={email && email} />
+                            <input
+                                type="email"
+                                name="email"
+                                id=""
+                                defaultValue={email && email}
+                                readOnly={!edit}
+                            />
                         </div>
                         <div>
                             <label htmlFor="">Website: </label>
-                            <input type="text" name="website" id="" defaultValue={website && website} />
+                            <input
+                                type="text"
+                                name="website"
+                                id=""
+                                defaultValue={website && website}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Skype ID: </label>
-                            <input type="text" name="skype" id="" defaultValue={skype && skype} />
+                            <input
+                                type="text"
+                                name="skype"
+                                id=""
+                                defaultValue={skype && skype}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Phone: </label>
-                            <input type="number" name="phone" id="" defaultValue={phone && phone} />
+                            <input
+                                type="number"
+                                name="phone"
+                                id=""
+                                defaultValue={phone && phone}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Mobile: </label>
-                            <input type="number" name="mobile" id="" defaultValue={mobile && mobile} />
+                            <input
+                                type="number"
+                                name="mobile"
+                                id=""
+                                defaultValue={mobile && mobile}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Fax: </label>
-                            <input type="number" name="fax" id="" defaultValue={fax && fax} />
+                            <input
+                                type="number"
+                                name="fax"
+                                id=""
+                                defaultValue={fax && fax}
+                                readOnly={!edit}
+                            />
                         </div>
                     </section>
 
                     <section className={styles.information}>
                         <div>
                             <label htmlFor="">Street </label>
-                            <input type="text" name="street" id="" defaultValue={address?.street} />
+                            <input
+                                type="text"
+                                name="street"
+                                id=""
+                                defaultValue={address?.street}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">City </label>
-                            <input type="text" name="city" id="" defaultValue={address?.city} />
+                            <input
+                                type="text"
+                                name="city"
+                                id=""
+                                defaultValue={address?.city}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">State </label>
-                            <input type="text" name="state" id="" defaultValue={address?.state} />
+                            <input
+                                type="text"
+                                name="state"
+                                id=""
+                                defaultValue={address?.state}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">ZIP Code </label>
-                            <input type="number" name="zipCode" id="" defaultValue={address?.zipCode} />
+                            <input
+                                type="number"
+                                name="zipCode"
+                                id=""
+                                defaultValue={address?.zipCode}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Country </label>
-                            <input type="text" name="country" id="" defaultValue={address?.country} />
+                            <input
+                                type="text"
+                                name="country"
+                                id=""
+                                defaultValue={address?.country}
+                                readOnly={!edit}
+                            />
                         </div>
                     </section>
 
                     <section className={styles.descriptionAndEmainOptArea}>
                         <div>
                             <label htmlFor="">Email Opt Out </label>
-                            <input type="checkbox" name="emailOptOut" id="" defaultValue={emailOptOut && emailOptOut} />
+                            <input
+                                type="checkbox"
+                                name="emailOptOut"
+                                id=""
+                                defaultValue={emailOptOut && emailOptOut}
+                                readOnly={!edit}
+                            />
                         </div>
                         <div className={styles.descriptionInfo}>
                             <label htmlFor="">Description </label>
-                            <textarea name="description" id="" cols="30" rows="10" defaultValue={description}></textarea>
+                            <textarea
+                                name="description"
+                                id=""
+                                cols="30"
+                                rows="10"
+                                defaultValue={description}
+                                readOnly={!edit}
+                            ></textarea>
                         </div>
                     </section>
                     {edit && <div className={styles.createButton}>
@@ -276,4 +414,4 @@ function CreateNewAccount() {
     )
 }
 
-export default CreateNewAccount
+export default SingleAccountDetails

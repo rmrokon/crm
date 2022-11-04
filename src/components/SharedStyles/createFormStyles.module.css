@@ -46,14 +46,14 @@
     border-left: 1px solid gray;
 }
 
-input {
+.createItemForm input {
     width: 15vw;
     border: 1px solid lightgray;
     border-radius: 8px;
     padding: 12px;
 }
 
-input:focus {
+.createItemForm input:focus {
     border: 1px solid darkcyan;
     outline: none;
 }

@@ -87,7 +87,7 @@ function CreateNewAccount() {
                 <h3>Create Account</h3>
             </header>
             <main>
-                <form action="" onSubmit={handleSubmit}>
+                <form className={styles.createItemForm} action="" onSubmit={handleSubmit}>
                     <div className={styles.displayImage}>
                         <img src={imageUrl} alt="" />
                         <input onChange={handleImageChange} style={{ display: 'none' }} type="file" name="" id="" placeholder='' ref={imageInputRef} />

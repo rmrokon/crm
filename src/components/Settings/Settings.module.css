@@ -1,0 +1,25 @@
+.settingsContainer {
+    margin-left: 8vw;
+    position: relative;
+}
+
+.settingsContainer a {
+    text-decoration: none;
+    display: block;
+    color: black;
+}
+
+.settingsContainer a:hover {
+    color: darkcyan;
+}
+
+.InviteUserModal {
+    border: 1px solid darkcyan;
+    border-radius: 8px;
+    width: 50%;
+    position: absolute;
+    top: -50vh;
+    left: 25%;
+    transition: all;
+    transition-duration: 500ms;
+}

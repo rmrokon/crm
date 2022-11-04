@@ -1,3 +1,23 @@
 .homeContainer {
-    color: red;
+    position: relative;
+    left: 9vw;
+    margin-top: 2vh;
+    width: 90vw;
+    font-family: 'Raleway', sans-serif;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    grid-gap: 10px;
+
+}
+
+.homeContainer>div {
+    border: 2px solid rgba(0, 139, 139, 0.5);
+    border-radius: 8px;
+    max-height: max-content;
+}
+
+.homeContainer>div>h3 {
+    text-align: center;
+    margin: 10px 0;
 }

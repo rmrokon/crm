@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styles from '../SharedStyles/createFormStyles.module.css';
 
-function CreateNewDeal() {
+function SingleDealDetails() {
     const { id } = useParams();
     const [deal, setDeal] = useState({});
     const [edit, setEdit] = useState(false);
@@ -63,10 +63,14 @@ function CreateNewDeal() {
     return (
         <div className={styles.formContainer}>
             <header className={styles.formHeader}>
-                <h3>Deal: {dealName}</h3>
+                <h3>Deal: {id}</h3>
                 {!edit && <button onClick={handleEdit} className={styles.editBtn}>Edit <i class="fas fa-pen"></i></button>}
             </header>
-            <form action="" onSubmit={handleSubmit}>
+            <form
+                className={styles.createItemForm}
+                action=""
+                onSubmit={handleSubmit}
+            >
                 {edit && <div className={styles.createButton}>
                     <input type="submit" value="Save" />
                     <button onClick={handleEdit} className={styles.cancelBtn}>Cancel</button>
@@ -281,4 +285,4 @@ function CreateNewDeal() {
     )
 }
 
-export default CreateNewDeal
+export default SingleDealDetails

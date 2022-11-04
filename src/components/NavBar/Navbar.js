@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './NavBar.module.css';
 import { NavLink } from "react-router-dom";
+import auth from '../../firebase.init';
+import { signOut } from 'firebase/auth';
 
 function Navbar() {
+
     return (
         <nav className={styles.container}>
             <div className={styles.logo}>Logo</div>
@@ -11,48 +14,48 @@ function Navbar() {
                     className={styles.link}
                     style={({ isActive }) => {
                         return {
-                            color: isActive ? "red" : "white",
+                            color: isActive ? "cyan" : "white",
                         };
                     }}
                     to='home'
-                ><i class="fas fa-home"></i><span>Home</span></NavLink>
+                ><i className="fas fa-home"></i><span>Home</span></NavLink>
                 <NavLink
                     className={styles.link}
                     style={({ isActive }) => {
                         return {
-                            color: isActive ? "red" : "white",
+                            color: isActive ? "cyan" : "white",
                         };
                     }}
                     to='leads'
-                ><i class="far fa-address-card"></i><span>Leads</span></NavLink>
+                ><i className="far fa-address-card"></i><span>Leads</span></NavLink>
                 <NavLink
                     className={styles.link}
                     style={({ isActive }) => {
                         return {
-                            color: isActive ? "red" : "white",
+                            color: isActive ? "cyan" : "white",
                         };
                     }}
                     to='contacts'
-                ><i class="far fa-address-book"></i><span>Contacts</span></NavLink>
+                ><i className="far fa-address-book"></i><span>Contacts</span></NavLink>
                 <NavLink
                     className={styles.link}
                     style={({ isActive }) => {
                         return {
-                            color: isActive ? "red" : "white",
+                            color: isActive ? "cyan" : "white",
                         };
                     }}
                     to='accounts'
-                ><i class="far fa-user-circle"></i><span>Accounts</span></NavLink>
+                ><i className="far fa-user-circle"></i><span>Accounts</span></NavLink>
                 <NavLink
                     className={styles.link}
                     style={({ isActive }) => {
                         return {
-                            color: isActive ? "red" : "white",
+                            color: isActive ? "cyan" : "white",
                         };
                     }}
                     to='deals'
-                ><i class="fa fa-file-invoice-dollar"></i><span>Deals</span></NavLink>
-                <NavLink
+                ><i className="fa fa-file-invoice-dollar"></i><span>Deals</span></NavLink>
+                {/* <NavLink
                     className={styles.link}
                     style={({ isActive }) => {
                         return {
@@ -69,22 +72,30 @@ function Navbar() {
                         };
                     }}
                     to='meetings'
-                ><i class="far fa-calendar-alt"></i><span>Meetings</span></NavLink>
+                ><i class="far fa-calendar-alt"></i><span>Meetings</span></NavLink> */}
 
             </div>
 
-            <div className={styles.icons}>
-                <div className={styles.linksContainer}>
-                    Icons
-                    {/* <NavLink
-                        style={({ isActive }) => {
-                            return {
-                                color: isActive ? "red" : "white",
-                            };
-                        }}
-                        to={'/settings'}
-                    ><i class="fas fa-cog"></i><span>Settings</span></NavLink> */}
-                </div>
+            <div className={styles.linksContainer}>
+
+                <NavLink
+                    style={({ isActive }) => {
+                        return {
+                            color: isActive ? "red" : "white",
+                        };
+                    }}
+                    to={'/settings'}
+                ><i class="fas fa-cog"></i><span>Settings</span></NavLink>
+
+                <NavLink
+                    style={({ isActive }) => {
+                        return {
+                            color: isActive ? "cyan" : "white",
+                        };
+                    }}
+                    to={'/login'}
+                    onClick={() => signOut(auth)}
+                ><i class="fas fa-sign-out-alt"></i><span>Logout</span></NavLink>
             </div>
         </nav>
     )

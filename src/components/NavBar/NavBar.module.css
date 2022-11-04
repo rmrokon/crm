@@ -9,23 +9,21 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-}
-
-.linksContainer:hover .container {
-    width: 13vw;
+    font-family: 'Raleway', sans-serif;
 }
 
 .linksContainer {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    height: 60%;
+    justify-content: center;
+    height: 30%;
     width: 100%;
 }
 
 .linksContainer a {
     text-decoration: none;
     margin-left: 5%;
+    margin-bottom: 15%;
 }
 
 .linksContainer a i {

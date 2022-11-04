@@ -1,8 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { addDeal } from '../../redux/Deals';
 import styles from '../SharedStyles/createFormStyles.module.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreateNewDeal() {
     const dealOwners = ["Rokon", "Naeim", "Reza"];
@@ -12,7 +11,7 @@ function CreateNewDeal() {
     const dealStage = ['Qualification', 'Needs Analysis', 'Value Proposition', 'Identify Decision Makers', 'Proposal', 'Closed Won', 'Closed Lost'];
     const contactNames = ["Rokon", "Naeim", "Reza"];
     const campaignSource = ['campaign1', 'campaign2', 'campaign3'];
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
 
     const handleSubmit = async (e) => {
@@ -47,12 +46,16 @@ function CreateNewDeal() {
 
     }
 
+    const handleCancel = () => {
+        navigate('/deals');
+    }
+
     return (
-        <div>
+        <div className={styles.formContainer}>
             <header className={styles.formHeader}>
                 <h3>Create New Deal</h3>
             </header>
-            <form action="" onSubmit={handleSubmit}>
+            <form className={styles.createItemForm} action="" onSubmit={handleSubmit}>
                 <section className={styles.dataLists}>
                     <div>
                         <label htmlFor="">Deal Owner </label>
@@ -172,6 +175,7 @@ function CreateNewDeal() {
                 </section>
                 <div className={styles.createButton}>
                     <input type="submit" value="Save" />
+                    <button onClick={handleCancel} className={styles.cancelBtn}>Cancel</button>
                 </div>
             </form>
         </div>

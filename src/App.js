@@ -17,27 +17,71 @@ import SingleContactDetails from './components/SingleContactDetails/SingleContac
 import SingleDealDetails from './components/SingleDealDetails/SingleDealDetails';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import Login from './components/Authentication/Login';
+import Register from './components/Authentication/Register';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from './firebase.init';
+import Settings from './components/Settings/Settings';
+import RequireAuth from './components/RequireAuth/RequireAuth';
+import ForgotPassword from './components/Authentication/ForgotPassword';
 
 function App() {
+  const [user, loading, error] = useAuthState(auth);
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
-        <Navbar />
+        {user && <Navbar />}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/leads" element={<Leads />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/accounts" element={<Accounts />} />
-          <Route path="/deals" element={<Deals />} />
-          <Route path="/create/lead" element={<CreatNewLead />} />
-          <Route path="/create/contact" element={<CreateNewContact />} />
-          <Route path="/create/account" element={<CreateNewAccount />} />
-          <Route path="/create/deal" element={<CreateNewDeal />} />
-          <Route path='/account/:id' element={<SingleAccountDetails />} />
-          <Route path='/lead/:id' element={<SingleLeadDetails />} />
-          <Route path='/contact/:id' element={<SingleContactDetails />} />
-          <Route path='/deal/:id' element={<SingleDealDetails />} />
+          <Route path="/" element={<RequireAuth>
+            <Home />
+          </RequireAuth>} />
+          <Route path="/home" element={<RequireAuth>
+            <Home />
+          </RequireAuth>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/leads" element={<RequireAuth>
+            <Leads />
+          </RequireAuth>} />
+          <Route path="/contacts" element={<RequireAuth>
+            <Contacts />
+          </RequireAuth>} />
+          <Route path="/accounts" element={<RequireAuth>
+            <Accounts />
+          </RequireAuth>} />
+          <Route path="/deals" element={<RequireAuth>
+            <Deals />
+          </RequireAuth>} />
+          <Route path="/settings" element={<RequireAuth>
+            <Settings />
+          </RequireAuth>} />
+          <Route path="/create/lead" element={<RequireAuth>
+            <CreatNewLead />
+          </RequireAuth>} />
+          <Route path="/create/contact" element={<RequireAuth>
+            <CreateNewContact />
+          </RequireAuth>} />
+          <Route path="/create/account" element={<RequireAuth>
+            <CreateNewAccount />
+          </RequireAuth>} />
+          <Route path="/create/deal" element={<RequireAuth>
+            <CreateNewDeal />
+          </RequireAuth>} />
+          <Route path='/account/:id' element={<RequireAuth>
+            <SingleAccountDetails />
+          </RequireAuth>} />
+          <Route path='/lead/:id' element={<RequireAuth>
+            <SingleLeadDetails />
+          </RequireAuth>} />
+          <Route path='/contact/:id' element={<RequireAuth>
+            <SingleContactDetails />
+          </RequireAuth>} />
+          <Route path='/deal/:id' element={<RequireAuth>
+            <SingleDealDetails />
+          </RequireAuth>} />
+
+          <Route path='/forgotPassword' element={<ForgotPassword />} />
 
         </Routes>
       </div>

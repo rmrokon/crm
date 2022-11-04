@@ -3,7 +3,7 @@ import styles from '../SharedStyles/createFormStyles.module.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-function CreateNewContact() {
+function SingleContactDetails() {
     const { id } = useParams();
     const [contact, setContact] = useState({});
     const [edit, setEdit] = useState(false);
@@ -15,7 +15,7 @@ function CreateNewContact() {
     const [photoUrl, setPhotoUrl] = useState('');
     const imageAPIkey = "ba174ce3bc57048f9cd66363c4b7ddfe";
 
-    const { contactOwner, accountName, leadSource, firstName, contactName, lastName, company, mobile, email, website, emailOptOut, description, skype, phone, fax, address } = contact;
+    const { contactOwner, accountName, leadSource, firstName, contactName, lastName, company, mobile, email, website, emailOptOut, description, skype, phone, fax, address, imageUrl } = contact;
 
     useEffect(() => {
         axios.get(`http://localhost:5000/api/v1/contact/${id}`)
@@ -112,19 +112,23 @@ function CreateNewContact() {
     }
 
     return (
-        <div>
+        <div className={styles.formContainer}>
             <header className={styles.formHeader}>
                 <h3>Contact: {id}</h3>
                 {!edit && <button onClick={handleEdit} className={styles.editBtn}>Edit <i class="fas fa-pen"></i></button>}
             </header>
             <main>
-                <form action="" onSubmit={handleSubmit}>
+                <form
+                    className={styles.createItemForm}
+                    action=""
+                    onSubmit={handleSubmit}
+                >
                     {edit && <div className={styles.createButton}>
                         <input type="submit" value="Save" />
                         <button onClick={handleEdit} className={styles.cancelBtn}>Cancel</button>
                     </div>}
                     <div className={styles.displayImage}>
-                        <img src={photoUrl} alt="" />
+                        <img src={imageUrl} alt="" />
                         <input onChange={handleImageChange} style={{ display: 'none' }} type="file" name="" id="" placeholder='' ref={imageInputRef} />
                         {
                             edit && <div>
@@ -138,8 +142,13 @@ function CreateNewContact() {
                     <div className={styles.dataLists}>
                         <div>
                             <label htmlFor="">Contact Owner</label>
-                            <input type="text" list='contactOwner' name='contactOwner'
-                                defaultValue={contactOwner} />
+                            <input
+                                type="text"
+                                list='contactOwner'
+                                name='contactOwner'
+                                defaultValue={contactOwner}
+                                readOnly={!edit}
+                            />
                             <datalist id='contactOwner'>
                                 {
                                     contactOwners.map((owner, index) =>
@@ -150,8 +159,13 @@ function CreateNewContact() {
                         </div>
                         <div>
                             <label htmlFor="">Account Name</label>
-                            <input type="text" list='accountName' name='accountName'
-                                defaultValue={accountName} />
+                            <input
+                                type="text"
+                                list='accountName'
+                                name='accountName'
+                                defaultValue={accountName}
+                                readOnly={!edit}
+                            />
                             <datalist id='accountName'>
                                 {
                                     contactOwners.map((owner, index) =>
@@ -163,7 +177,13 @@ function CreateNewContact() {
 
                         <div>
                             <label htmlFor="">Lead Source</label>
-                            <input type="text" list='leadSource' name='leadSource' defaultValue={leadSource} />
+                            <input
+                                type="text"
+                                list='leadSource'
+                                name='leadSource'
+                                defaultValue={leadSource}
+                                readOnly={!edit}
+                            />
                             <datalist id='leadSource'>
                                 {
                                     leadSources.map((source, index) =>
@@ -176,87 +196,193 @@ function CreateNewContact() {
                     <section className={styles.information}>
                         <div>
                             <label htmlFor="">First Name</label>
-                            <input type="text" name="firstName" id="" required defaultValue={firstName} />
+                            <input
+                                type="text"
+                                name="firstName"
+                                id=""
+                                required
+                                defaultValue={firstName}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Last Name</label>
-                            <input type="text" name="lastName" id="" required defaultValue={lastName} />
+                            <input
+                                type="text"
+                                name="lastName"
+                                id=""
+                                required
+                                defaultValue={lastName}
+                                readOnly={!edit}
+                            />
                         </div>
                         <div>
                             <label htmlFor="">Title</label>
-                            <input type="text" name="contactName" id="" required defaultValue={contactName} />
+                            <input
+                                type="text"
+                                name="contactName"
+                                id=""
+                                required
+                                defaultValue={contactName}
+                                readOnly={!edit}
+                            />
                         </div>
                         <div>
                             <label htmlFor="">Company</label>
-                            <input type="text" name="company" id="" defaultValue={company} />
+                            <input
+                                type="text"
+                                name="company"
+                                id=""
+                                defaultValue={company}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Email</label>
-                            <input type="email" name="email" id="" defaultValue={email} />
+                            <input
+                                type="email"
+                                name="email"
+                                id=""
+                                defaultValue={email}
+                                readOnly={!edit}
+                            />
                         </div>
                         <div>
                             <label htmlFor="">Website</label>
-                            <input type="text" name="website" id="" defaultValue={website} />
+                            <input
+                                type="text"
+                                name="website"
+                                id=""
+                                defaultValue={website}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Skype ID</label>
-                            <input type="text" name="skype" id="" defaultValue={skype} />
+                            <input
+                                type="text"
+                                name="skype"
+                                id=""
+                                defaultValue={skype}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Phone</label>
-                            <input type="number" name="phone" id="" defaultValue={phone} />
+                            <input
+                                type="number"
+                                name="phone"
+                                id=""
+                                defaultValue={phone}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Mobile</label>
-                            <input type="number" name="mobile" id="" defaultValue={mobile} />
+                            <input
+                                type="number"
+                                name="mobile"
+                                id=""
+                                defaultValue={mobile}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Fax</label>
-                            <input type="number" name="fax" id="" defaultValue={fax} />
+                            <input
+                                type="number"
+                                name="fax"
+                                id=""
+                                defaultValue={fax}
+                                readOnly={!edit}
+                            />
                         </div>
                     </section>
 
                     <section className={styles.information}>
                         <div>
                             <label htmlFor="">Street</label>
-                            <input type="text" name="street" id="" defaultValue={address?.street} />
+                            <input
+                                type="text"
+                                name="street"
+                                id=""
+                                defaultValue={address?.street}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">City</label>
-                            <input type="text" name="city" id="" defaultValue={address?.city} />
+                            <input
+                                type="text"
+                                name="city"
+                                id=""
+                                defaultValue={address?.city}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">State</label>
-                            <input type="text" name="state" id="" defaultValue={address?.state} />
+                            <input
+                                type="text"
+                                name="state"
+                                id=""
+                                defaultValue={address?.state}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">ZIP Code</label>
-                            <input type="number" name="zipCode" id="" defaultValue={address?.zipCode} />
+                            <input
+                                type="number"
+                                name="zipCode"
+                                id=""
+                                defaultValue={address?.zipCode}
+                                readOnly={!edit}
+                            />
                         </div>
 
                         <div>
                             <label htmlFor="">Country</label>
-                            <input type="text" name="country" id="" defaultValue={address?.country} />
+                            <input
+                                type="text"
+                                name="country"
+                                id=""
+                                defaultValue={address?.country}
+                                readOnly={!edit}
+                            />
                         </div>
                     </section>
 
                     <section className={styles.descriptionAndEmainOptArea}>
                         <div>
                             <label htmlFor="">Email Opt Out</label>
-                            <input type="checkbox" name="emailOptOut" id="" defaultValue={emailOptOut} />
+                            <input
+                                type="checkbox"
+                                name="emailOptOut"
+                                id=""
+                                defaultValue={emailOptOut}
+                                readOnly={!edit}
+                            />
                         </div>
                         <div className={styles.descriptionInfo}>
                             <label htmlFor="">Description</label>
-                            <textarea name="description" id="" cols="30" rows="10" defaultValue={description}></textarea>
+                            <textarea
+                                name="description"
+                                id=""
+                                cols="30"
+                                rows="10"
+                                defaultValue={description}
+                                readOnly={!edit}
+                            ></textarea>
                         </div>
                     </section>
                     {edit && <div className={styles.createButton}>
@@ -269,4 +395,4 @@ function CreateNewContact() {
     )
 }
 
-export default CreateNewContact
+export default SingleContactDetails
